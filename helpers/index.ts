@@ -1,2 +1,2 @@
-export * from './all-settled.helper'
-export * from './view-count.helper'
+export * from './all-settled.helper';
+export * from './video-data.helper';
