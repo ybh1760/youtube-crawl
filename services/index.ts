@@ -1,1 +1,1 @@
-export * from './youtube-crawl.service'
+export * from './youtube-crawl.service';

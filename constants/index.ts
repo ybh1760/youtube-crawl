@@ -1,1 +1,1 @@
-export * from './youtube.constant'
+export * from './youtube.constant';
