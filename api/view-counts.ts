@@ -5,14 +5,19 @@ import { YoutubeCrawlService } from '../services'
 
 export default async (request: VercelRequest, response: VercelResponse) => {
   const { codes }: { codes: string[] } = request.body
+  if (codes.length > 20) {
+    response
+      .status(400)
+      .json({ errorMessage: '최대요청 코드개수는 20개입니다.' })
+  }
 
-  const youtubeCrawlService = new YoutubeCrawlService()
   const results = await Promise.allSettled(
     codes.map(
       (code) =>
         new Promise(async (resolve, reject) => {
           try {
-            const viewCount = await youtubeCrawlService.crawlViewCount(code)
+            const $youtube = await YoutubeCrawlService.load(code)
+            const viewCount = await $youtube.scrapViewCount()
             resolve({ code, viewCount })
           } catch (err) {
             reject({ code })
